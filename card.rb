@@ -18,29 +18,31 @@ class CardValidator
 		}
 }
 
-	def verify_luhn(card_number)
-		card_number.chars.map(&:to_i).reverse.each_with_index.map { |x, idx| (idx % 2 == 0) ? x : x * 2  }.join("").chars.map(&:to_i).inject(0, :+) % 10 == 0
-	end
+def verify_luhn(card_number)
+	card_number.chars.map(&:to_i).reverse.each_with_index.map { |x, idx| (idx % 2 == 0) ? x : x * 2  }.join("").chars.map(&:to_i).inject(0, :+) % 10 == 0
+end
 
 
-	def check_start_and_length(card_number)
-		card_type = ""
-		CARD_TYPES.each do |c_type, value|
-			valid = (card_number.start_with? *value[:start_with] and value[:card_number_length].include?(card_number.length))
-			if valid
-				card_type = c_type
-			end
+def check_start_and_length(card_number)
+	card_type = ""
+	CARD_TYPES.each do |c_type, value|
+		valid = (card_number.start_with? *value[:start_with] and value[:card_number_length].include?(card_number.length))
+		if valid
+			card_type = c_type
 		end
-		card_type
 	end
+	card_type
+end
+
 end
 
 class Card < CardValidator
-	attr_accessor :card_number, :card_type
+attr_accessor :card_number, :card_type
 
-	def check_card_type
-		check_start_and_length(self.card_number)
-	end
+def check_card_type
+	check_start_and_length(self.card_number)
+end
+
 end
 
 card = Card.new
@@ -58,6 +60,7 @@ while line = STDIN.gets
 		msg = card.card_type.empty? ?  "Unknown" : card.card_type.to_s
 		puts  msg + ": " + card.card_number + " (invalid)"
 	end
+	
 	puts "Please enter next card number or type 'quit' :"
 end
 
