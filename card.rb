@@ -1,22 +1,22 @@
-	class CardValidator
-		CARD_TYPES = {
-			:AMEX => {
-				:start_with => ["34", "37"],
-				:card_number_length => [15]
-			},
-			:Discover => {
-				:start_with => ["6011"],
-				:card_number_length => [16]
-			},
-			:MasterCard => {
-				:start_with => (51..55).to_a.map(&:to_s),
-				:card_number_length => [16]
-			},
-			:VISA => {
-				:start_with => ["4"],
-				:card_number_length => [13, 16]
-			}
-	}
+class CardValidator
+	CARD_TYPES = {
+		:AMEX => {
+			:start_with => ["34", "37"],
+			:card_number_length => [15]
+		},
+		:Discover => {
+			:start_with => ["6011"],
+			:card_number_length => [16]
+		},
+		:MasterCard => {
+			:start_with => (51..55).to_a.map(&:to_s),
+			:card_number_length => [16]
+		},
+		:VISA => {
+			:start_with => ["4"],
+			:card_number_length => [13, 16]
+		}
+}
 
 	def verify_luhn(card_number)
 		card_number.chars.map(&:to_i).reverse.each_with_index.map { |x, idx| (idx % 2 == 0) ? x : x * 2  }.join("").chars.map(&:to_i).inject(0, :+) % 10 == 0
