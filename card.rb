@@ -45,7 +45,7 @@ end
 
 card = Card.new
 
-p "Please enter the card number:"
+puts "Please enter the card number:"
 
 while line = STDIN.gets
 	break if line.chomp == "quit"
