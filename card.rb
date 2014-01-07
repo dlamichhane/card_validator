@@ -39,7 +39,7 @@ class Card < CardValidator
 	attr_accessor :card_number, :card_type
 
 	def check_card_type
-		check_start_and_length(self.card_number)
+	 check_start_and_length(self.card_number)
 	end
 end
 
